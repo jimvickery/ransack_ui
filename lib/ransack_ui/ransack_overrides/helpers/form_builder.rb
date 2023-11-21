@@ -248,17 +248,10 @@ module Ransack
         bases = [''] + association_array(associations)
 
         bases.each do |base|
-          searchable_attributes = searchable_attributes_for_base(base)
-      
-          next unless searchable_attributes.any? { |attr_data| attr_data[:attribute] == attribute }
-      
-          filtered_attributes = searchable_attributes.reject { |attr_data| attr_data[:attribute].to_s.start_with?("cf") }
-      
-          filtered_attributes.each do |attr_data|
-            return attr_data[:foreign_klass] if attr_data[:attribute] == attribute
+          searchable_attributes_for_base(base).each do |attribute_data|
+            return attribute_data[:foreign_klass] if attribute == attribute_data[:attribute]
           end
-        end   
-        nil
+        end
       end
     end
   end
