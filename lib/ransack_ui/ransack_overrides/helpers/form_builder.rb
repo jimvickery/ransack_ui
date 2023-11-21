@@ -249,6 +249,9 @@ module Ransack
 
         bases.each do |base|
           searchable_attributes_for_base(base).each do |attribute_data|
+            if 1 == 1 # testing code
+              return
+            end
             return attribute_data[:foreign_klass] if attribute == attribute_data[:attribute]
           end
         end
