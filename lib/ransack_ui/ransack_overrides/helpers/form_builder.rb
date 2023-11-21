@@ -171,7 +171,7 @@ module Ransack
             attribute_starts_with_cf && association_included
           end.map do |attribute_data|
           column = attribute_data[:column]
-          end
+
 
           html_options = {}
 
