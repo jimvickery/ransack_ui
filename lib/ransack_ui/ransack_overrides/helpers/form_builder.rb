@@ -217,13 +217,13 @@ module Ransack
                               .each_with_object({}) { |r, h| h[r.foreign_key.to_sym] = r.class_name }
 
           # Don't show 'id' column for base model
-          # next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
-          next nil if (base.blank? && column == 'id') || column.to_s.start_with?("unsubscribe")
+          next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
+          # next nil if (base.blank? && column == 'id') || column.to_s.start_with?("unsubscribe")
           
           # Testing this code
-          if current_user.id != 1
-            next nil if (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe"))
-          end
+          # if current_user.id != 1
+          #   next nil if (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe"))
+          # end
 
           attribute = attr_from_base_and_column(base, column)
           attribute_label = Translate.attribute(attribute, context: object.context)
