@@ -249,6 +249,7 @@ module Ransack
 
         bases.each do |base|
           searchable_attributes_for_base(base).each do |attribute_data|
+            attribute_data.reject { |attribute_data| attribute_data[:attribute].to_s.start_with?("cf") }
             return attribute_data[:foreign_klass] if attribute == attribute_data[:attribute]
           end
         end
