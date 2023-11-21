@@ -197,6 +197,7 @@ module Ransack
             # Skip attributes starting with "cf"
             attribute_data[:attribute].to_s.start_with?("cf")
           end.map do |attribute_data|
+          end
 
           [
             attribute_data[:label],
