@@ -200,6 +200,18 @@ module Ransack
             html_options
           ]
         end
+        searchable_attributes_for_base(base).reject do |attribute_data|
+          # Skip attributes starting with "cf"
+          attribute_data[:attribute].to_s.start_with?("cf")
+        end.map do |attribute_data|
+          # Existing code...
+      
+          [
+            attribute_data[:label],
+            attribute_data[:attribute],
+            html_options
+          ]
+        end
       rescue UntraversableAssociationError
         nil
       end
