@@ -75,8 +75,6 @@ module Ransack
               next unless condition_attributes.any?
 
               attribute = condition_attributes.first.name
-              # Add condition to skip fields starting with "cf"
-              next if attribute.start_with?("cf")   
               klass_name = foreign_klass_for_attribute(attribute)
 
               next unless klass_name
@@ -88,14 +86,17 @@ module Ransack
 
               labels[attribute] ||= {}
 
-              if value_object.respond_to?(:full_name)
+              if value_object.respond_to? :full_name
                 labels[attribute][value.value] = value_object.full_name
-              elsif value_object.respond_to?(:name)
+              elsif value_object.respond_to? :name
                 labels[attribute][value.value] = value_object.name
               end
             end
           end
         end
+
+        labels
+      end
 
         labels
       end
@@ -193,19 +194,10 @@ module Ransack
             html_options[:'data-ajax-type'] = ajax_options[:type] || 'GET'
             html_options[:'data-ajax-key']  = ajax_options[:key]  || 'query'
           end
-
-          [
-            attribute_data[:label],
-            attribute_data[:attribute],
-            html_options
-          ]
-        end
-        searchable_attributes_for_base(base).reject do |attribute_data|
-          # Skip attributes starting with "cf"
-          attribute_data[:attribute].to_s.start_with?("cf")
-        end.map do |attribute_data|
-          # Existing code...
-      
+          searchable_attributes_for_base(base).reject do |attribute_data|
+            # Skip attributes starting with "cf"
+            attribute_data[:attribute].to_s.start_with?("cf")
+          end.map do |attribute_data|
           [
             attribute_data[:label],
             attribute_data[:attribute],
