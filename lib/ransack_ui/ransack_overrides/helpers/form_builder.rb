@@ -239,8 +239,6 @@ module Ransack
             attribute: attribute
           }
           attribute_data[:foreign_klass] = foreign_klass if foreign_klass
-          attribute_data.reject { |attr_data| attr_data[:attribute].to_s.start_with?("cf") }.map do |attr_data| # skipping "custom fields"
-          end
           attribute_data
         end.compact
       end
