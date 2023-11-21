@@ -161,17 +161,8 @@ module Ransack
 
         column_select_options.merge!(klass.ransack_column_select_options) if klass.respond_to?(:ransack_column_select_options)
 
-        
-          associations = object.context.klass.ransackable_associations
-
-          searchable_attributes_for_base(base).reject do |attribute_data|
-            attribute_starts_with_cf = attribute_data[:attribute].to_s.start_with?("cf")
-            association_included = associations.any? { |assoc| assoc.to_s == attribute_data[:attribute].to_s }
-
-            attribute_starts_with_cf && association_included
-          end.map do |attribute_data|
+        searchable_attributes_for_base(base).reject { |attribute_data| attribute_data[:attribute].to_s.start_with?("cf") }.map do |attribute_data|
           column = attribute_data[:column]
-
 
           html_options = {}
 
