@@ -75,8 +75,8 @@ module Ransack
               next unless condition_attributes.any?
 
               attribute = condition_attributes.first.name
-              # Add condition to skip fields starting with "Cf"
-              next if attribute.start_with?("Cf")   
+              # Add condition to skip fields starting with "cf"
+              next if attribute.start_with?("cf")   
               klass_name = foreign_klass_for_attribute(attribute)
 
               next unless klass_name
