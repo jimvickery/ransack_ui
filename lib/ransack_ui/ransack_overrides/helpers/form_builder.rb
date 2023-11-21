@@ -207,7 +207,6 @@ module Ransack
       private
 
       def searchable_attributes_for_base(base)
-        current_user = $ransack_ui_current_user.call
         cache_prefix = object.context.klass.table_name
         cache_key = base.blank? ? cache_prefix : [cache_prefix, base].join('_')
 
