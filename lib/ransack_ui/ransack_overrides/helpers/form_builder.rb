@@ -219,7 +219,7 @@ module Ransack
           # next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
           next nil if (base.blank? && column == 'id')
           
-          if current_user.id != 1
+          if user.id != 1
             next nil if (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe"))
           end
 
