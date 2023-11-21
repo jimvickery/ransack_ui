@@ -76,7 +76,7 @@ module Ransack
 
               attribute = condition_attributes.first.name
               # Add condition to skip fields starting with "cf"
-              next if attribute.start_with?("cf")   
+              # next if attribute.start_with?("cf")   
               klass_name = foreign_klass_for_attribute(attribute)
 
               next unless klass_name
@@ -86,7 +86,7 @@ module Ransack
               value_object = klass.find_by_id(value.value)
               next unless value_object
 
-              labels[attribute] = {}    #   labels[attribute] ||= {}
+              labels[attribute] ||= {}
 
               if value_object.respond_to?(:full_name)
                 labels[attribute][value.value] = value_object.full_name
