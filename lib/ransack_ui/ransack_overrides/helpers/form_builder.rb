@@ -75,6 +75,8 @@ module Ransack
               next unless condition_attributes.any?
 
               attribute = condition_attributes.first.name
+              # Add condition to skip fields starting with "Cf"
+              next if attribute.start_with?("Cf")   
               klass_name = foreign_klass_for_attribute(attribute)
 
               next unless klass_name
@@ -86,9 +88,9 @@ module Ransack
 
               labels[attribute] ||= {}
 
-              if value_object.respond_to? :full_name
+              if value_object.respond_to?(:full_name)
                 labels[attribute][value.value] = value_object.full_name
-              elsif value_object.respond_to? :name
+              elsif value_object.respond_to?(:name)
                 labels[attribute][value.value] = value_object.name
               end
             end
