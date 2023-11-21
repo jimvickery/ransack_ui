@@ -86,7 +86,7 @@ module Ransack
               value_object = klass.find_by_id(value.value)
               next unless value_object
 
-              labels[attribute] ||= {}
+              labels[attribute] = {}    #   labels[attribute] ||= {}
 
               if value_object.respond_to?(:full_name)
                 labels[attribute][value.value] = value_object.full_name
