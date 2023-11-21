@@ -193,11 +193,6 @@ module Ransack
             html_options[:'data-ajax-type'] = ajax_options[:type] || 'GET'
             html_options[:'data-ajax-key']  = ajax_options[:key]  || 'query'
           end
-          searchable_attributes_for_base(base).reject do |attribute_data|
-            # Skip attributes starting with "cf"
-            attribute_data[:attribute].to_s.start_with?("cf")
-          end.map do |attribute_data|
-          end
 
           [
             attribute_data[:label],
