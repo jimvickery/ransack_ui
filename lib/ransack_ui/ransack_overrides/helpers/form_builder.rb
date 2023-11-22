@@ -217,11 +217,12 @@ module Ransack
 
           # Don't show 'id' column for base model
           # next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
-          next nil if (base.blank? && column == 'id') 
           
           # Testing this code
           if @current_user != 1
-            next nil if (column.to_s.start_with?("cf")) || (column.to_s.start_with?("unsubscribe"))
+            next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
+          else
+            next nil if (base.blank? && column == 'id') 
           end
 
           attribute = attr_from_base_and_column(base, column)
