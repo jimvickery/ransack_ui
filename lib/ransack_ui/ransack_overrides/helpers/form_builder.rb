@@ -50,7 +50,7 @@ module Ransack
               attr_from_base_and_column(bases.first, c),
               Translate.attribute(attr_from_base_and_column(bases.first, c), context: object.context)
             ]
-          end.reject { |field| field.first.to_s.start_with?("cf") } # Filtering out fields starting with "cf"   
+          end.reject { |field| field.first.to_s.start_with?("cf") || field.first.to_s.start_with?("unsubscribe") } # Filtering out fields starting with "cf" or "unsubscribe"  
           @template.collection_select(
             @object_name, :name, collection, :first, :last,
             objectify_options(options), @default_options.merge(class: 'ransack_sort').merge(html_options)
