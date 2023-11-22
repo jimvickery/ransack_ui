@@ -220,7 +220,7 @@ module Ransack
           next nil if (base.blank? && column == 'id') || column.to_s.start_with?("unsubscribe")
           
           # Testing this code
-          if $ransack_ui_current_user.id != 1
+          if $ransack_ui_current_user != 1
             next nil if (column.to_s.start_with?("cf"))
           end
 
