@@ -144,13 +144,10 @@ module Ransack
       def attribute_collection_for_base(base)
         klass = object.context.traverse(base)
         ajax_options = Ransack.options[:ajax_options] || {}
-
-        # Detect any inclusion validators to build list of options for a column
         column_select_options = klass.validators.each_with_object({}) do |v, hash|
           next unless v.is_a? ActiveModel::Validations::InclusionValidator
-
+      
           v.attributes.each do |a|
-            # Try to translate options from activerecord.attribute_options.<model>.<attribute>
             inclusions = v.send(:delimiter)
             inclusions = inclusions.call if inclusions.respond_to?(:call) # handle lambda
             hash[a.to_s] = inclusions.each_with_object({}) do |o, options|
@@ -158,48 +155,58 @@ module Ransack
             end
           end
         end
-
+      
         column_select_options.merge!(klass.ransack_column_select_options) if klass.respond_to?(:ransack_column_select_options)
-
-        searchable_attributes_for_base(base).reject { |attribute_data| attribute_data[:attribute].to_s.start_with?("cf") || attribute_data[:attribute].to_s.start_with?("unsubscribe")}.map do |attribute_data|
-          column = attribute_data[:column]
-
-          html_options = {}
-
-          # Add column type as data attribute
-          html_options[:'data-type'] = attribute_data[:type]
-          # Set 'base' attribute if attribute is on base model
-          html_options[:'data-root-model'] = true if base.blank?
-
-          # Set column options if detected from inclusion validator
-          if column_select_options[column]
-            # Format options as an array of hashes with id and text columns, for Select2
-            html_options[:'data-select-options'] = column_select_options[column].map do |id, text|
-              { id: id, text: text }
-            end.to_json
+      
+        searchable_attributes = searchable_attributes_for_base(base)
+        if @current_user == 1
+          searchable_attributes.map! do |attribute_data|
+            next if attribute_data[:attribute].to_s.start_with?("cf") || attribute_data[:attribute].to_s.start_with?("unsubscribe")
+      
+            generate_attribute_data(attribute_data, base, column_select_options, ajax_options)
           end
-
-          foreign_klass = attribute_data[:foreign_klass]
-
-          if foreign_klass
-            # If field is a foreign key, set up 'data-ajax-*' attributes for auto-complete
-            controller = ActiveSupport::Inflector.tableize(foreign_klass.to_s)
-            html_options[:'data-ajax-entity'] = I18n.translate(controller, default: controller)
-            if ajax_options[:url]
-              html_options[:'data-ajax-url'] = ajax_options[:url].sub(':controller', controller)
-            else
-              html_options[:'data-ajax-url'] = "/#{controller}.json"
-            end
-            html_options[:'data-ajax-type'] = ajax_options[:type] || 'GET'
-            html_options[:'data-ajax-key']  = ajax_options[:key]  || 'query'
-          end
-
-          [
-            attribute_data[:label],
-            attribute_data[:attribute],
-            html_options
-          ]
+        else
+          searchable_attributes.reject! { |attribute_data| base.blank? && (attribute_data[:attribute].to_s.start_with?("cf") || attribute_data[:attribute].to_s.start_with?("unsubscribe")) }
+          searchable_attributes.map! { |attribute_data| generate_attribute_data(attribute_data, base, column_select_options, ajax_options) }
         end
+      
+        searchable_attributes.compact
+      rescue UntraversableAssociationError
+        nil
+      end
+      
+      private
+      
+      def generate_attribute_data(attribute_data, base, column_select_options, ajax_options)
+        column = attribute_data[:column]
+        html_options = {}
+        
+        html_options[:'data-type'] = attribute_data[:type]
+        html_options[:'data-root-model'] = true if base.blank?
+      
+        if column_select_options[column]
+          html_options[:'data-select-options'] = column_select_options[column].map do |id, text|
+            { id: id, text: text }
+          end.to_json
+        end
+      
+        foreign_klass = attribute_data[:foreign_klass]
+      
+        if foreign_klass
+          controller = ActiveSupport::Inflector.tableize(foreign_klass.to_s)
+          html_options[:'data-ajax-entity'] = I18n.translate(controller, default: controller)
+          html_options[:'data-ajax-url'] = ajax_options[:url]&.sub(':controller', controller) || "/#{controller}.json"
+          html_options[:'data-ajax-type'] = ajax_options[:type] || 'GET'
+          html_options[:'data-ajax-key'] = ajax_options[:key] || 'query'
+        end
+      
+        [
+          attribute_data[:label],
+          attribute_data[:attribute],
+          html_options
+        ]
+      end
+      
       rescue UntraversableAssociationError
         nil
       end
