@@ -216,7 +216,7 @@ module Ransack
                               .each_with_object({}) { |r, h| h[r.foreign_key.to_sym] = r.class_name }
 
           # Don't show 'id' column for base model
-          if @combined_userds_child_ids == 1
+          if MyGem.get_user == 1
             next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
           end
           # next nil if (base.blank? && column == 'id') || column.to_s.start_with?("unsubscribe")
