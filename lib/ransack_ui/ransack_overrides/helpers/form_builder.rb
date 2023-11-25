@@ -158,27 +158,10 @@ module Ransack
             end
           end
         end
+
         column_select_options.merge!(klass.ransack_column_select_options) if klass.respond_to?(:ransack_column_select_options)
+
         searchable_attributes_for_base(base).reject { |attribute_data| attribute_data[:attribute].to_s.start_with?("cf") || attribute_data[:attribute].to_s.start_with?("unsubscribe")}.map do |attribute_data|
-          if @current_user == 1
-            searchable_attributes.map! do |attribute_data|
-              next if attribute_data[:attribute].to_s.start_with?("cf") || attribute_data[:attribute].to_s.start_with?("unsubscribe")
-        
-              generate_attribute_data(attribute_data, base, column_select_options, ajax_options)
-            end
-          else
-            searchable_attributes.reject! { |attribute_data| base.blank? && (attribute_data[:attribute].to_s.start_with?("cf") || attribute_data[:attribute].to_s.start_with?("unsubscribe")) }
-            searchable_attributes.map! { |attribute_data| generate_attribute_data(attribute_data, base, column_select_options, ajax_options) }
-          end
-        
-          searchable_attributes.compact
-        rescue UntraversableAssociationError
-          nil
-        end
-        
-        private
-        
-        def generate_attribute_data(attribute_data, base, column_select_options, ajax_options)
           column = attribute_data[:column]
 
           html_options = {}
@@ -233,7 +216,7 @@ module Ransack
                               .each_with_object({}) { |r, h| h[r.foreign_key.to_sym] = r.class_name }
 
           # Don't show 'id' column for base model
-          next nil if ((base.blank? && column == 'id'))  # || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
+          next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
           # next nil if (base.blank? && column == 'id') || column.to_s.start_with?("unsubscribe")
           
           # Testing this code
