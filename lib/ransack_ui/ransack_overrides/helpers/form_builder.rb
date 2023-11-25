@@ -209,7 +209,7 @@ module Ransack
       def searchable_attributes_for_base(base)
         cache_prefix = object.context.klass.table_name
         cache_key = base.blank? ? cache_prefix : [cache_prefix, base].join('_')       
-        if @current_user == 1
+        if 2 == 1
           self.class.cached_searchable_attributes_for_base[cache_key] ||= object.context.searchable_attributes(base).map do |column, type|
             klass = object.context.traverse(base)
             foreign_keys = klass.reflect_on_all_associations.select(&:belongs_to?)
