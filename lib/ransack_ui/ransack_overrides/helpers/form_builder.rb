@@ -161,11 +161,7 @@ module Ransack
 
         column_select_options.merge!(klass.ransack_column_select_options) if klass.respond_to?(:ransack_column_select_options)
 
-        if 1 == 2 
         searchable_attributes_for_base(base).reject { |attribute_data| attribute_data[:attribute].to_s.start_with?("cf") || attribute_data[:attribute].to_s.start_with?("unsubscribe")}.map do |attribute_data|
-        else
-          searchable_attributes_for_base(base).reject { |attribute_data| attribute_data[:attribute].to_s.start_with?("22ss") || attribute_data[:attribute].to_s.start_with?("unsubscribe")}.map do |attribute_data|
-        end
           column = attribute_data[:column]
 
           html_options = {}
@@ -220,8 +216,14 @@ module Ransack
                               .each_with_object({}) { |r, h| h[r.foreign_key.to_sym] = r.class_name }
 
           # Don't show 'id' column for base model
-          next nil if ((base.blank? && column == 'id')) # || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
- 
+          next nil if ((base.blank? && column == 'id'))  # || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
+          # next nil if (base.blank? && column == 'id') || column.to_s.start_with?("unsubscribe")
+          
+          # Testing this code
+          # if $ransack_ui_current_user != 1
+          #   next nil if (column.to_s.start_with?("cf"))
+          # end
+
           attribute = attr_from_base_and_column(base, column)
           attribute_label = Translate.attribute(attribute, context: object.context)
 
