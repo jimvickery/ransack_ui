@@ -216,12 +216,10 @@ module Ransack
                               .each_with_object({}) { |r, h| h[r.foreign_key.to_sym] = r.class_name }
 
           # Don't show 'id' column for base model
-          # next nil if (base.blank? && coluumn == 'id') 
+          next nil if (base.blank? && coluumn == 'id') 
           
           if @current_user == 1
-            next nil if ((base.blank? && column == 'id') || (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe")))
-          else
-            next nil if (base.blank? && coluumn == 'id') 
+            next nil if  (column.to_s.start_with?("cf") || column.to_s.start_with?("unsubscribe"))
           end
           # next nil if (base.blank? && column == 'id') || column.to_s.start_with?("unsubscribe")
           
