@@ -22,16 +22,8 @@
       <div class="pull-right">
         <%= hidden_field_tag :distinct, '1' %>
         <%= hidden_field_tag :page, '1' %>
-        <%= f.submit t('ransack.submit'), class: 'btn btn-primary btn-large submit-search' %>
+        <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search' %>
       </div>
     </div>
   </div>
 <% end %>
-
-<script>
-  $(document).ready(function() {
-    $('form').on('ajax:success', function(event) {
-      location.reload(); // Reload the page on successful form submission via AJAX
-    });
-  });
-</script>
