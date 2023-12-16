@@ -22,30 +22,16 @@
       <div class="pull-right">
         <%= hidden_field_tag :distinct, '1' %>
         <%= hidden_field_tag :page, '1' %>
-        <%= f.submit t('ransack.submit'), class: 'btn btn-primary btn-large submit-search', id: 'reload-page-button' %>
+        <%= f.submit t('ransack.submit'), class: 'btn btn-primary btn-large submit-search' %>
       </div>
     </div>
   </div>
 <% end %>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('#reload-page-button').on('click', function() {
-      const newQuery = $('#search-input').val();
-      const oldQuery = localStorage.getItem('searchQuery');
-
-      if (newQuery && newQuery !== oldQuery) {
-        localStorage.setItem('searchQuery', newQuery);
-      }
-
-      window.location.reload();
+    $('form').on('ajax:success', function(event) {
+      location.reload(); // Reload the page on successful form submission via AJAX
     });
-
-    // Set initial value in the input field
-    const initialQuery = localStorage.getItem('searchQuery');
-    if (initialQuery) {
-      $('#search-input').val(initialQuery);
-    }
   });
 </script>
