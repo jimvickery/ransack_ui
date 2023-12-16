@@ -22,8 +22,18 @@
       <div class="pull-right">
         <%= hidden_field_tag :distinct, '1' %>
         <%= hidden_field_tag :page, '1' %>
-        <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search' %>
+        <%= f.submit t('ransack.submit'), class: 'btn btn-primary btn-large submit-search', id: 'reload-page-button' %>
       </div>
     </div>
   </div>
 <% end %>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#reload-page-button').on('click', function(e) {
+      e.preventDefault(); // Prevents the default form submission
+      window.location.reload(); // Reloads the page
+    });
+  });
+</script>
