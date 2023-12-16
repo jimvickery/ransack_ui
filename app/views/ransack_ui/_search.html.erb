@@ -32,7 +32,8 @@
 <script>
   $(document).ready(function() {
     $('#reload-page-button').on('click', function(e) {
-      // Continue with default form submission behavior
+      e.preventDefault(); // Prevent the default form submission
+      window.location.href = window.location.href; // Reloads the page by setting the window location to the current URL
     });
   });
 </script>
