@@ -31,9 +31,21 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('#reload-page-button').on('click', function(e) {
-      // e.preventDefault(); // Prevent the default form submission
-      window.location.href = window.location.href; // Reloads the page by setting the window location to the current URL
+    $('#reload-page-button').on('click', function() {
+      const newQuery = $('#search-input').val();
+      const oldQuery = localStorage.getItem('searchQuery');
+
+      if (newQuery && newQuery !== oldQuery) {
+        localStorage.setItem('searchQuery', newQuery);
+      }
+
+      window.location.reload();
     });
+
+    // Set initial value in the input field
+    const initialQuery = localStorage.getItem('searchQuery');
+    if (initialQuery) {
+      $('#search-input').val(initialQuery);
+    }
   });
 </script>
