@@ -1,4 +1,4 @@
-<% @result_ids_test = rand(1..3) %>
+<% @result_ids_test = Contact.all.count %>
 
 <%= search_form_for @ransack_search, :url => (options[:url] || url_for(:action => :index)),
   :html => {:method => :get, :class => "ransack_search"}, :remote => !!options[:remote] do |f| %>
@@ -24,7 +24,6 @@
       <div class="pull-right">
         <%= hidden_field_tag :distinct, '1' %>
         <%= hidden_field_tag :page, '1' %>
-        <%= f.hidden_field :result_ids_test, value: @result_ids_test %>
         <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search' %>
       </div>
     </div>
