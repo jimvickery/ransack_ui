@@ -7,7 +7,7 @@
     Ransack.alt_predicates_i18n = <%= I18n.translate(:"ransack.predicates.alt", :default => {}).to_json.html_safe %>;
     Ransack.value_field_labels  = <%= f.labels_for_value_fields.to_json.html_safe %>;
 
-    $(document).on('submit', '#ransack-form', function(event) {
+    $(document).on('submit', '#ransack-button', function(event) {
       // Perform any custom actions or method calls here
       get_results(); // Call the get_results method
       // Continue with form submission if needed
@@ -31,7 +31,7 @@
       <div class="pull-right">
         <%= hidden_field_tag :distinct, '1' %>
         <%= hidden_field_tag :page, '1' %>
-        <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search' %>
+        <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search', :id => 'ransack-button' %>
       </div>
     </div>
   </div>
