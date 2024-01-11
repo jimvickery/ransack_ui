@@ -1,6 +1,9 @@
 module RansackUI
   module ViewHelpers
     def ransack_ui_search(options = {})
+      @search = Contact.all.accessible_by(current_ability).ransack(params[:q])
+      @results = @search.result # This fetches the matching records
+      @result_ids2 = @results.pluck(:id)
       render 'ransack_ui/search', options: options
     end
 
