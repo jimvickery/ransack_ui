@@ -26,8 +26,8 @@
       <div class="pull-right">
         <%= hidden_field_tag :distinct, '1' %>
         <%= hidden_field_tag :page, '1' %>
-        <%= hidden_field_tag @result_ids2 %>
         <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search' %>
+        <%= @result_ids2 %>
       </div>
     </div>
   </div>
