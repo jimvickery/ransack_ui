@@ -8,7 +8,6 @@
     Ransack.value_field_labels  = <%= f.labels_for_value_fields.to_json.html_safe %>;
 
     $(document).on('submit', '#ransack-form', function(event) {
-      event.preventDefault();
       // Perform any custom actions or method calls here
       get_results(); // Call the get_results method
       // Continue with form submission if needed
