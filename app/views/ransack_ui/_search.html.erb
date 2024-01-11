@@ -1,3 +1,7 @@
+- @search = Contact.all.accessible_by(current_ability).ransack(params[:q])
+- @results = @search.result # This fetches the matching records
+- @result_ids2 = @results.pluck(:id)
+
 <%= search_form_for @ransack_search, :url => (options[:url] || url_for(:action => :index)),
   :html => {:method => :get, :class => "ransack_search"}, :remote => !!options[:remote] do |f| %>
 
