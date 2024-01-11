@@ -4,11 +4,6 @@ module RansackUI
       render 'ransack_ui/search', options: options
     end
 
-    def get_results
-      @search = Contact.all.accessible_by(current_ability).ransack(params[:q])
-      @results = @search.result # This fetches the matching records
-      @result_ids2 = @results.pluck(:id)
-    end
 
     def link_to_add_fields(name, f, type, options)
       new_object = f.object.send "build_#{type}"
