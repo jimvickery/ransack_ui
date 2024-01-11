@@ -8,7 +8,6 @@ module RansackUI
       @search = Contact.all.accessible_by(current_ability).ransack(params[:q])
       @results = @search.result # This fetches the matching records
       @result_ids2 = @results.pluck(:id)
-      render json: { results: @result_ids2 }
     end
 
     def link_to_add_fields(name, f, type, options)
