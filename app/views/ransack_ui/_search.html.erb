@@ -23,7 +23,7 @@
       <div class="pull-right">
         <%= hidden_field_tag :distinct, '1' %>
         <%= hidden_field_tag :page, '1' %>
-        <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search' %>
+        <%= f.submit t('ransack.submit'), :class => 'btn btn-primary btn-large submit-search', :id => 'submitButton' %>
       </div>
     </div>
   </div>
@@ -34,15 +34,15 @@
   var hasCodeRun = false;
 
   // Add an event listener for the form submission
-  // $('#submitButton').on('click', function () {
-  //   // Check if the code has already run
-  //   if (!hasCodeRun) {
-  //     // Run the code
-  //     setTimeout(function () {
-  //       location.reload(true);
-  //       // Set the flag to true to prevent the code from running again
-  //       hasCodeRun = true;
-  //     }, 50);
-  //   }
-  // });
+  $('#submitButton').on('click', function () {
+    // Check if the code has already run
+    if (!hasCodeRun) {
+      // Run the code
+      setTimeout(function () {
+        location.reload(true);
+        // Set the flag to true to prevent the code from running again
+        hasCodeRun = true;
+      }, 50);
+    }
+  });
 </script>
