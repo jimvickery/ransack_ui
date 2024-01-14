@@ -31,16 +31,25 @@
 <% model = controller.controller_name.classify.constantize %>
 <% @search = model.all.accessible_by(current_ability).ransack(params[:q]).result.ids %>
 <script>
-  // Define a flag to check whether the code has already run
-  // var hasCodeRun = false;
+  // Define a function to perform the search and return a Promise
+  function performSearch() {
+    return new Promise(function(resolve, reject) {
+      // Run the search code
+      var results = "<%= @search = controller.controller_name.classify.constantize.all.accessible_by(current_ability).ransack(params[:q]).result.ids %>";
+      console.log(results);
+      
+      // Resolve the Promise with the search results
+      resolve(results);
+    });
+  }
 
   // Add an event listener for the form submission
   $('#submitButton').on('click', function () {
-    // Check if the code has already run
-      // Run the code
-        var results = "<%= @search = controller.controller_name.classify.constantize.all.accessible_by(current_ability).ransack(params[:q]).result.ids  %>";
-        console.log(results);   
-        // hasCodeRun = true;
+    // Call the performSearch function and handle the Promise
+    performSearch().then(function(results) {
+      // Handle the results here asynchronously
+      console.log("Async results:", results);
+    });
   });
 </script>
 
