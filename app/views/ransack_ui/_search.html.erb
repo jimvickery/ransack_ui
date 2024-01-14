@@ -38,7 +38,7 @@
     if (!hasCodeRun) {
       // Run the code
       setTimeout(function () {
-        // location.reload(true);  # removed this because it causes the url to not save correctly since the form reloads with default parameters
+        location.reload(true);  # removed this because it causes the url to not save correctly since the form reloads with default parameters
         // Set the flag to true to prevent the code from running again
         hasCodeRun = true;
       }, 50);
