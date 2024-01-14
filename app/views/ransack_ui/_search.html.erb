@@ -30,19 +30,23 @@
 <% end %>
 
 <script>
-  // Define a flag to check whether the code has already run
-  // var hasCodeRun = false;
+  $(document).ready(function() {
+    // Add an event listener for the submit button click
+    $('#submitButton').on('click', function(e) {
+      e.preventDefault(); // Prevent the default form submission
 
-  // Add an event listener for the form submission
-  $('#submitButton').on('click', function () {
-    // Check if the code has already run
-    // if (!hasCodeRun) {
-    //   // Run the code
-    //   setTimeout(function () {
-    //     location.reload(true);
-    //     // Set the flag to true to prevent the code from running again
-    //     hasCodeRun = true;
-    //   }, 50);
-    // }
+      // Make an AJAX request to reload the partial
+      $.ajax({
+        url: '/search/reload_sidebar',  // Update with the correct path
+        type: 'GET',
+        success: function(response) {
+          // Replace the content of the sidebar with the updated partial
+          $('#sidebar-container').html(response);
+        },
+        error: function(error) {
+          console.error(error);
+        }
+      });
+    });
   });
 </script>
