@@ -37,14 +37,12 @@
   // Add an event listener for the form submission
   $('#submitButton').on('click', function () {
     // Check if the code has already run
-    if (!hasCodeRun) {
       // Run the code
       setTimeout(function () {
         var results = "<%= @search = controller.controller_name.classify.constantize.all.accessible_by(current_ability).ransack(params[:q]).result.ids  %>";
         console.log(results);   
         // hasCodeRun = true;
       }, 500);
-    }
   });
 </script>
 
