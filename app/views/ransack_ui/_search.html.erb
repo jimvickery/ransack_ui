@@ -44,11 +44,17 @@
   }
 
   // Add an event listener for the form submission
-  $('#submitButton').on('click', function () {
+  $('#submitButton').on('click', function (event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
     // Call the performSearch function and handle the Promise
     performSearch().then(function(results) {
-      // Handle the results here asynchronously
-      console.log("Async results:", results);
+      // Set the form action to the correct URL
+      $('form.ransack_search').attr('action', '<%= url_for(action: :index) %>');
+      
+      // Manually trigger a synchronous form submission
+      $('form.ransack_search').submit();
     });
   });
 </script>
