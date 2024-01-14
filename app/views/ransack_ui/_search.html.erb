@@ -46,7 +46,7 @@
   // Add an event listener for the form submission
   $('#submitButton').on('click', function (event) {
     // Prevent the default form submission behavior
-    event.preventDefault();
+    // event.preventDefault();
 
     // Call the performSearch function and handle the Promise
     performSearch().then(function(results) {
