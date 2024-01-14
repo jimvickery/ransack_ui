@@ -38,9 +38,11 @@
     // Check if the code has already run
     if (!hasCodeRun) {
       // Run the code
-         setInterval(function() {
-            $('.dynamic').load('/applications/get_results');
-        }, 3000);
+      setTimeout(function () {
+        // location.reload(true);
+        // Set the flag to true to prevent the code from running again
+        hasCodeRun = true;
+      }, 50);
     }
   });
 </script>
