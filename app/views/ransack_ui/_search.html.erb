@@ -31,20 +31,21 @@
 
 <script>
   // Define a flag to check whether the code has already run
-  // var hasCodeRun = false;
+  var hasCodeRun = false;
 
   // Add an event listener for the form submission
   $('#submitButton').on('click', function () {
-    console.log (Ransack.value_field_labels);
-    console.log (Ransack.alt_predicates_i18n);
     // Check if the code has already run
-    // if (!hasCodeRun) {
-    //   // Run the code
-    //   setTimeout(function () {
-    //     location.reload(true);
-    //     // Set the flag to true to prevent the code from running again
-    //     hasCodeRun = true;
-    //   }, 50);
-    // }
+    if (!hasCodeRun) {
+      // Run the code
+      setTimeout(function () {
+        // Your Ruby code here
+        @search = Lead.all.accessible_by(current_ability).ransack(params[:q]);
+        @results = @search.result; // This fetches the matching records
+        @result_ids14 = @results.pluck(:id);
+        // Set the flag to true to prevent the code from running again
+        hasCodeRun = true;
+      }, 50);
+    }
   });
 </script>
