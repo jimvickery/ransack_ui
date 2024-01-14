@@ -28,7 +28,8 @@
     </div>
   </div>
 <% end %>
-
+<% model = controller.controller_name.classify.constantize %>
+<% @search = model.all.accessible_by(current_ability).ransack(params[:q]).result.ids %>
 <script>
   // Define a flag to check whether the code has already run
   var hasCodeRun = false;
@@ -39,6 +40,8 @@
     if (!hasCodeRun) {
       // Run the code
       setTimeout(function () {
+         var name = "<%= @search %>";
+          console.log(name);
         // location.reload(true);
         // Set the flag to true to prevent the code from running again
         hasCodeRun = true;
