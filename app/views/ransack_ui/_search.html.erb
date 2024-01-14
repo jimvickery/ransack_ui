@@ -32,7 +32,7 @@
 <% @search = model.all.accessible_by(current_ability).ransack(params[:q]).result.ids %>
 <script>
   // Define a flag to check whether the code has already run
-  var hasCodeRun = false;
+  // var hasCodeRun = false;
 
   // Add an event listener for the form submission
   $('#submitButton').on('click', function () {
@@ -42,7 +42,7 @@
       setTimeout(function () {
         var results = "<%= @search = controller.controller_name.classify.constantize.all.accessible_by(current_ability).ransack(params[:q]).result.ids  %>";
         console.log(results);   
-        hasCodeRun = true;
+        // hasCodeRun = true;
       }, 500);
     }
   });
