@@ -29,20 +29,3 @@
   </div>
 <% end %>
 
-<script>
-  // Define a flag to check whether the code has already run
-  var hasCodeRun = false;
-
-  // Add an event listener for the form submission
-  $('#submitButton').on('click', function () {
-    // Check if the code has already run
-    if (!hasCodeRun) {
-      // Run the code
-      setTimeout(function () {
-        location.reload(true);
-        // Set the flag to true to prevent the code from running again
-        hasCodeRun = true;
-      }, 50);
-    }
-  });
-</script>
