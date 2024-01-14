@@ -28,24 +28,18 @@
     </div>
   </div>
 <% end %>
-<% model = controller.controller_name.classify.constantize %>
-<% @search = model.all.accessible_by(current_ability).ransack(params[:q]).result.ids %>
+
 <script>
   // Define a flag to check whether the code has already run
-  var hasCodeRun = false;
 
   // Add an event listener for the form submission
   $('#submitButton').on('click', function () {
     // Check if the code has already run
-    if (!hasCodeRun) {
+
       // Run the code
-      setTimeout(function () {
-         var results = "<%= @search %>";
+         var results = "<%= @search = controller.controller_name.classify.constantize.all.accessible_by(current_ability).ransack(params[:q]).result.ids  %>";
           console.log(results);
         // location.reload(true);
-        // Set the flag to true to prevent the code from running again
-        hasCodeRun = true;
-      }, 50);
-    }
+        // Set the flag to true to prevent the code from running again 
   });
 </script>
