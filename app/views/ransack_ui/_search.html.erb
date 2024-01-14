@@ -43,7 +43,7 @@
         var results = "<%= @search = controller.controller_name.classify.constantize.all.accessible_by(current_ability).ransack(params[:q]).result.ids  %>";
         console.log(results);   
         hasCodeRun = true;
-      }, 50);
+      }, 500);
     }
   });
 </script>
